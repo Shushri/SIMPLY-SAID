@@ -1,19 +1,37 @@
 <%- include("partitions/header.ejs") %>
 
-<div class="form1">
-  <form action="/home" method="POST">
-    <label for="fName"> First Name:</label>
-    <input type="text" name="fName" required> 
-    <br>
-    <label for="lName"> Last Name:</label>
-    <input type="text" name="lName" required> 
-    <br>
-    <label for="Email">Email:</label>
-    <input type="email" name="Email" required>
-    <br>
-    <input type="submit" value="Login">
-  </form>
-</div>
+<!-- Fullscreen flex center -->
+<div class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <div class="form1 p-4 shadow rounded bg-white">
+          <h2 class="text-center mb-4">Login</h2>
 
+          <form action="/home" method="POST">
+            <div class="mb-3">
+              <label for="fName" class="form-label">First Name</label>
+              <input type="text" name="fName" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="lName" class="form-label">Last Name</label>
+              <input type="text" name="lName" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="Email" class="form-label">Email</label>
+              <input type="email" name="Email" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <%- include("partitions/footer.ejs") %>

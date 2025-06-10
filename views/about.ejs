@@ -1,6 +1,22 @@
-<%-include("partitions/header.ejs") %>
+<%- include("partitions/header.ejs") %>
 
-<h1>HELLO <%=name%>!!!</h1>
-    <h2>YOU ALL ARE DOING WELL!!!</h2>
+<div class="about-container">
+  <h1>Welcome, <%= name %>!</h1>
+  
+  <p>
+    <strong>Simply Said</strong> is a space where thoughts find meaning and words flow freely. 
+    Whether you're a reader looking for thoughtful content or a writer hoping to share your voice, 
+    this platform brings you stories, opinions, and ideas — simply said.
+  </p>
 
-<%-include("partitions/footer.ejs") %>
+  <h3>Explore Blog Categories:</h3>
+  <ul class="blog-links">
+    <li><a href="/blogs/tech">🖥️ Tech & Programming</a></li>
+    <li><a href="/blogs/lifestyle">🌿 Lifestyle</a></li>
+    <li><a href="/blogs/education">📘 Education & Study Tips</a></li>
+    <li><a href="/blogs/personal">💭 Personal Growth & Reflections</a></li>
+    <li><a href="/blogs/creative">✍️ Poems, Stories & Art</a></li>
+  </ul>
+</div>
+
+<%- include("partitions/footer.ejs") %>
