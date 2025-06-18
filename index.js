@@ -1,5 +1,6 @@
 import express from "express"
 import bodyParser from "body-parser";
+import axios from "axios";
 
 const app=express();
 const port=3000;
@@ -10,9 +11,12 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 var user="";
 app.get("/",(req,res)=>{
+    try {
+      res.render("index.ejs");  
+    } catch (error) {
+      console.log("NOT FOUND");
+    }
     
-    res.render("index.ejs"
-    );
 })
 
 app.get("/blogs/:category", (req, res) => {
