@@ -19,16 +19,27 @@ app.get("/",(req,res)=>{
     
 })
 
-app.get("/blogs/:category", (req, res) => {
+app.get("/blogs/:category", async(req, res) => {
   const category = req.params.category;
-
+  var number=Math.floor(Math.random()*1000);
   const validCategories = ["tech", "lifestyle", "education", "personal", "creative"];
-  
-  if (validCategories.includes(category)) {
-    res.render(`blogs/${category}.ejs`, { category: category });
+  try {
+    const result=await axios.get(`http://numbersapi.com/${number}`)
+    if (validCategories.includes(category)) {
+    res.render(`blogs/${category}.ejs`, { category: category , facts:result.data });
   } else {
     res.status(404).send("Category not found");
+  }  
+  } 
+  catch (error) {
+    if (validCategories.includes(category)) {
+    res.render(`blogs/${category}.ejs`, { category: category , facts:"waiting..." });
+  } else {
+    res.status(404).send("Category not found");
+  } 
   }
+  
+  
 });
 
 

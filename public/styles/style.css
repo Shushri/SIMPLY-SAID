@@ -12,7 +12,7 @@ html, body {
 }
 
 .cre_body{
-  background-image: url('../images/creative.avif');
+  background-image: url('../images/creative.jpg');
   background-size: cover;            /* Scales image to cover the whole screen */
   background-repeat: no-repeat;      /* Prevents tiling */
   background-position: center center;/* Centers image */
@@ -82,4 +82,8 @@ html, body {
 
 .blog-links a:hover {
   text-decoration: underline;
+}
+.foot{
+  color: #ffffff;
+  text-align: center;
 }
