@@ -1,58 +1,49 @@
+//API here
 import express from "express"
 import bodyParser from "body-parser";
-import axios from "axios";
 
 const app=express();
-const port=3000;
+const port=4000;
 
-app.use(express.static("public"));
 
-app.use(bodyParser.urlencoded({extended:true}));
+let blogs=[
+  {
+    id: 1,
+    content: "We are writing this post to make you understand the concepts of routing between client and server.",
+    title: "Tech",
+    author: "Shrishti",
+    date: "2025-06-20T12:15:30.123Z",
 
-var user="";
-app.get("/",(req,res)=>{
-    try {
-      res.render("index.ejs");  
-    } catch (error) {
-      console.log("NOT FOUND");
-    }
-    
-})
+  },
+  {
+    id: 2,
+    content: "Hello guys I am Satyam Khare. I am a student in IIIT Bhopal. I am in IT branch. I love DSA and Coding",
+    title: "Personal",
+    author: "Satyam",
+    date: "2025-06-21T01:20:30.123Z",
 
-app.get("/blogs/:category", async(req, res) => {
-  const category = req.params.category;
-  var number=Math.floor(Math.random()*1000);
-  const validCategories = ["tech", "lifestyle", "education", "personal", "creative"];
-  try {
-    const result=await axios.get(`http://numbersapi.com/${number}`)
-    if (validCategories.includes(category)) {
-    res.render(`blogs/${category}.ejs`, { category: category , facts:result.data });
-  } else {
-    res.status(404).send("Category not found");
-  }  
-  } 
-  catch (error) {
-    if (validCategories.includes(category)) {
-    res.render(`blogs/${category}.ejs`, { category: category , facts:"waiting..." });
-  } else {
-    res.status(404).send("Category not found");
-  } 
+  },
+  {
+    id: 3,
+    content: "A bright future lies in our hands and that is only possible when we gather for saving our environment.",
+    title: "Environment",
+    author: "Bhoomija",
+    date: "2025-06-18T01:30:40.123Z",
+
   }
   
-  
+]
+
+// Middleware
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+
+app.listen(port, () => {
+  console.log(`API is running at http://localhost:${port}`);
 });
 
 
-
-app.post("/home",(req,res)=>{
-    user=req.body.fName;
-    res.render("about.ejs",
-        {name:user}
-    )
-})
-
-
-
-app.listen(port,()=>{
-    console.log(`Port ${port} is listening now...`);
-})
