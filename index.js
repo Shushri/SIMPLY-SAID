@@ -30,7 +30,15 @@ let blogs=[
     author: "Bhoomija",
     date: "2025-06-18T01:30:40.123Z",
 
-  }
+  },
+  {
+    id: 4,
+    content: "A bright future lies in our hands and that is only possible when we gather for saving our environment.",
+    title: "Educational",
+    author: "Bhoomija",
+    date: "2025-06-18T01:30:40.123Z",
+
+  },
   
 ]
 
@@ -59,6 +67,17 @@ app.get("/eduposts", (req, res) => {
     res.json(edublogs);
   } else {
     res.status(404).json({ message: "No Educational blogs found" });
+  }
+});
+
+//get the edu blogs
+app.get("/techposts", (req, res) => {
+  const techblogs = blogs.filter(b => b.title === "Tech");
+
+  if (techblogs.length > 0) {
+    res.json(techblogs);
+  } else {
+    res.status(404).json({ message: "No Technology blogs found" });
   }
 });
 

@@ -28,12 +28,38 @@ app.post("/home", (req, res) => {
 });
 
 // Blogs by category (static categories)
+
+//routes to creative blogs page
 app.get("/blogs/creative", async (req, res) => {
     
     try {
     const response = await axios.get(`${API_URL}/creativeposts`);
     console.log(response);
     res.render("blogs/creative.ejs", { posts: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching posts" });
+  }
+});
+
+//routes to tech blogs page
+app.get("/blogs/tech", async (req, res) => {
+    
+    try {
+    const response = await axios.get(`${API_URL}/techposts`);
+    console.log(response);
+    res.render("blogs/tech.ejs", { posts: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching posts" });
+  }
+});
+
+//routes to tech educational page
+app.get("/blogs/education", async (req, res) => {
+    
+    try {
+    const response = await axios.get(`${API_URL}/eduposts`);
+    console.log(response);
+    res.render("blogs/education.ejs", { posts: response.data });
   } catch (error) {
     res.status(500).json({ message: "Error fetching posts" });
   }
