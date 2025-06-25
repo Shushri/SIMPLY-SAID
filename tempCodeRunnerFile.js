@@ -26,7 +26,7 @@ let blogs=[
   {
     id: 3,
     content: "A bright future lies in our hands and that is only possible when we gather for saving our environment.",
-    title: "Creative",
+    title: "Environment",
     author: "Bhoomija",
     date: "2025-06-18T01:30:40.123Z",
 
@@ -40,16 +40,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //get the tech blogs
-app.get("/creativeposts", (req, res) => {
-  const creblogs = blogs.filter(b => b.title === "Creative");
+app.get("/techposts", (req, res) => {
+  const techblogs = blogs.filter(b => b.title === "Tech");
 
-  if (creblogs.length > 0) {
-    res.json(creblogs);
+  if (techblogs.length > 0) {
+    res.json(techblogs);
   } else {
-    res.status(404).json({ message: "No Creative blogs found" });
+    res.status(404).json({ message: "No Tech blogs found" });
   }
 });
-
 
 //get the edu blogs
 app.get("/eduposts", (req, res) => {

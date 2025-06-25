@@ -1,59 +1,48 @@
-import express from "express"
+import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 
-const app=express();
-const port=3000;
+const app = express();
+const port = 3000;
+
+// External API base URL (adjust as needed)
 const API_URL = "http://localhost:4000";
 
+// Middleware
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+app.set("view engine", "ejs");
 
-var user="";
-app.get("/",(req,res)=>{
-    try {
-      res.render("index.ejs");  
-    } catch (error) {
-      console.log("NOT FOUND");
-    }
+let user = "";
+
+// Login page
+app.get("/", (req, res) => {
+  res.render("index.ejs");
+});
+
+// Home page after login
+app.post("/home", (req, res) => {
+  user = req.body.fName;
+  res.render("about.ejs", { name: user });
+});
+
+// Blogs by category (static categories)
+app.get("/blogs/creative", async (req, res) => {
     
-})
-
-app.get("/home", async(req, res) => {
-  const category = req.params.category;
-  var number=Math.floor(Math.random()*100);
-  const validCategories = ["tech", "lifestyle", "education", "personal", "creative"];
-  try {
-    if (validCategories.includes(category)) {
-    res.render(`blogs/${category}.ejs`, { category: category  });
-  } else {
-    res.status(404).send("Category not found");
-  }  
-  } 
-  catch (error) {
-    if (validCategories.includes(category)) {
-    res.render(`blogs/${category}.ejs`, { category: category , facts:"waiting..." });
-  } else {
-    res.status(404).send("Category not found");
-  } 
+    try {
+    const response = await axios.get(`${API_URL}/creativeposts`);
+    console.log(response);
+    res.render("blogs/creative.ejs", { posts: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching posts" });
   }
-  
-  
 });
 
 
 
-app.post("/home",(req,res)=>{
-    user=req.body.fName;
-    res.render("about.ejs",
-        {name:user}
-    )
-})
 
-
-
-app.listen(port,()=>{
-    console.log(`Port ${port} is listening now...`);
-})
+// Start server
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
