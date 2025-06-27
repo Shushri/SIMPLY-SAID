@@ -32,6 +32,14 @@ let blogs=[
 
   },
   {
+    id: 3,
+    content: "A bright future lies in our hands and that is only possible when we gather for saving our environment.",
+    title: "Lifestyle",
+    author: "Bhoomija",
+    date: "2025-06-18T01:30:40.123Z",
+
+  },
+  {
     id: 4,
     content: "A bright future lies in our hands and that is only possible when we gather for saving our environment.",
     title: "Educational",
@@ -80,6 +88,28 @@ app.get("/techposts", (req, res) => {
     res.status(404).json({ message: "No Technology blogs found" });
   }
 });
+
+//get the lifestyle blogs
+app.get("/lifeposts",(req,res)=>{
+  const lifeblogs=blogs.filter(b => b.title === "Lifestyle");
+  if(lifeblogs.length>0){
+    res.json(lifeblogs);
+  }
+  else{
+    res.status(404).json({ message: "No Lifestyle blogs found" });
+  }
+})
+
+//get the personal blogs
+app.get("/personalposts",(req,res)=>{
+  const personalblogs=blogs.filter(b => b.title === "Personal");
+  if(personalblogs.length>0){
+    res.json(personalblogs);
+  }
+  else{
+    res.status(404).json({ message: "No Personal blogs found" });
+  }
+})
 
 //get the post by id
 app.get("/posts/:id",(req,res)=>{

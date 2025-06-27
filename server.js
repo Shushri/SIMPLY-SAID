@@ -53,7 +53,7 @@ app.get("/blogs/tech", async (req, res) => {
   }
 });
 
-//routes to tech educational page
+//routes to  educational page
 app.get("/blogs/education", async (req, res) => {
     
     try {
@@ -65,8 +65,25 @@ app.get("/blogs/education", async (req, res) => {
   }
 });
 
+//route to Lifestyle blogs page
+app.get("/blogs/lifestyle",async(req,res)=>{
+  try {
+    const response=await axios.get(`${API_URL}/lifeposts`);
+    res.render("blogs/lifestyle.ejs",{ posts: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching posts" });
+  }
+})
 
-
+//route to Personal blogs page
+app.get("/blogs/personal",async(req,res)=>{
+  try {
+    const response=await axios.get(`${API_URL}/personalposts`);
+    res.render("blogs/personal.ejs",{ posts: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching posts" });
+  }
+})
 
 // Start server
 app.listen(port, () => {
