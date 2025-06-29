@@ -109,7 +109,8 @@ app.post("/api/posts", async (req, res) => {
   try {
     const response = await axios.post(`${API_URL}/posts`, req.body);
     console.log(response.data);
-    res.redirect("/blogs/creative");
+    const title = response.data.title;
+    res.redirect(`/blogs/${title.toLowerCase()}`);
   } catch (error) {
     res.status(500).json({ message: "Error creating post" });
   }
@@ -123,7 +124,8 @@ app.post("/api/posts/:id", async (req, res) => {
       req.body
     );
     console.log(response.data);
-    res.redirect("/blogs/creative");
+    const title = response.data.title;
+    res.redirect(`/blogs/${title.toLowerCase()}`);
   } catch (error) {
     res.status(500).json({ message: "Error updating post" });
   }
@@ -132,8 +134,14 @@ app.post("/api/posts/:id", async (req, res) => {
 // Delete a post
 app.get("/api/posts/delete/:id", async (req, res) => {
   try {
+    const response = await axios.get(`${API_URL}/posts/${req.params.id}`);
+    const { title } = response.data;
+
+    // Now delete the post
     await axios.delete(`${API_URL}/posts/${req.params.id}`);
-    res.redirect("/blogs/creative");
+
+    // Redirect using the post's title
+    res.redirect(`/blogs/${title.toLowerCase()}`);
   } catch (error) {
     res.status(500).json({ message: "Error deleting post" });
   }
