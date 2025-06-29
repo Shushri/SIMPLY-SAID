@@ -1,181 +1,128 @@
-//API here
-import express from "express"
+import express from "express";
 import bodyParser from "body-parser";
 
-const app=express();
-const port=4000;
+const app = express();
+const port = 4000;
 
-
-let blogs=[
+let blogs = [
   {
     id: 1,
-    content: "We are writing this post to make you understand the concepts of routing between client and server.",
     title: "Tech",
+    content: "We are writing this post to make you understand the concepts of routing between client and server.",
     author: "Shrishti",
     date: "2025-06-20T12:15:30.123Z",
-
   },
   {
     id: 2,
-    content: "Hello guys I am Satyam Khare. I am a student in IIIT Bhopal. I am in IT branch. I love DSA and Coding",
     title: "Personal",
+    content: "Hello guys I am Satyam Khare...",
     author: "Satyam",
     date: "2025-06-21T01:20:30.123Z",
-
   },
   {
     id: 3,
-    content: "A bright future lies in our hands and that is only possible when we gather for saving our environment.",
     title: "Creative",
+    content: "A bright future lies in our hands...",
     author: "Bhoomija",
     date: "2025-06-18T01:30:40.123Z",
-
-  },
-  {
-    id: 3,
-    content: "A bright future lies in our hands and that is only possible when we gather for saving our environment.",
-    title: "Lifestyle",
-    author: "Bhoomija",
-    date: "2025-06-18T01:30:40.123Z",
-
   },
   {
     id: 4,
-    content: "A bright future lies in our hands and that is only possible when we gather for saving our environment.",
-    title: "Educational",
+    title: "Lifestyle",
+    content: "Healthy habits lead to a healthy life...",
     author: "Bhoomija",
     date: "2025-06-18T01:30:40.123Z",
-
   },
-  
-]
+  {
+    id: 5,
+    title: "Educational",
+    content: "Learning is a lifelong process...",
+    author: "Bhoomija",
+    date: "2025-06-18T01:30:40.123Z",
+  },
+];
 
 // Middleware
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//get the tech blogs
+// Category routes
+const getPostsByCategory = (category) => blogs.filter(b => b.title === category);
+
 app.get("/creativeposts", (req, res) => {
-  const creblogs = blogs.filter(b => b.title === "Creative");
-
-  if (creblogs.length > 0) {
-    res.json(creblogs);
-  } else {
-    res.status(404).json({ message: "No Creative blogs found" });
-  }
+  const posts = getPostsByCategory("Creative");
+  posts.length ? res.json(posts) : res.status(404).json({ message: "No Creative blogs found" });
 });
 
-
-//get the edu blogs
 app.get("/eduposts", (req, res) => {
-  const edublogs = blogs.filter(b => b.title === "Educational");
-
-  if (edublogs.length > 0) {
-    res.json(edublogs);
-  } else {
-    res.status(404).json({ message: "No Educational blogs found" });
-  }
+  const posts = getPostsByCategory("Educational");
+  posts.length ? res.json(posts) : res.status(404).json({ message: "No Educational blogs found" });
 });
 
-//get the edu blogs
 app.get("/techposts", (req, res) => {
-  const techblogs = blogs.filter(b => b.title === "Tech");
-
-  if (techblogs.length > 0) {
-    res.json(techblogs);
-  } else {
-    res.status(404).json({ message: "No Technology blogs found" });
-  }
+  const posts = getPostsByCategory("Tech");
+  posts.length ? res.json(posts) : res.status(404).json({ message: "No Tech blogs found" });
 });
 
-//get the lifestyle blogs
-app.get("/lifeposts",(req,res)=>{
-  const lifeblogs=blogs.filter(b => b.title === "Lifestyle");
-  if(lifeblogs.length>0){
-    res.json(lifeblogs);
-  }
-  else{
-    res.status(404).json({ message: "No Lifestyle blogs found" });
-  }
-})
-
-//get the personal blogs
-app.get("/personalposts",(req,res)=>{
-  const personalblogs=blogs.filter(b => b.title === "Personal");
-  if(personalblogs.length>0){
-    res.json(personalblogs);
-  }
-  else{
-    res.status(404).json({ message: "No Personal blogs found" });
-  }
-})
-
-//get the post by id
-app.get("/posts/:id",(req,res)=>{
-  const id=parseInt(req.params.id);
-  const post=posts.find(p=>p.id===id);
-  if(post){
-    res.json(post);
-  }
-  else{
-    res.sendStatus(404);
-  }
-
-  //POST a new post
-  app.post("/posts",(req,res)=>{
-    const blog={
-      id: blogs.length+1,
-      title: req.body.title,
-      content: req.body.content,
-      author: req.body.author,
-      date: new Date(),
-
-    }
-    blogs.push(blog);
-    res.json(blog);
+app.get("/lifeposts", (req, res) => {
+  const posts = getPostsByCategory("Lifestyle");
+  posts.length ? res.json(posts) : res.status(404).json({ message: "No Lifestyle blogs found" });
 });
 
-//Patch a blog
+app.get("/personalposts", (req, res) => {
+  const posts = getPostsByCategory("Personal");
+  posts.length ? res.json(posts) : res.status(404).json({ message: "No Personal blogs found" });
+});
+
+// Get by ID
+app.get("/posts/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const post = blogs.find(p => p.id === id);
+  post ? res.json(post) : res.sendStatus(404);
+});
+
+// POST a new post
+app.post("/posts", (req, res) => {
+  const newId = blogs.length ? Math.max(...blogs.map(p => p.id)) + 1 : 1;
+  const blog = {
+    id: newId,
+    title: req.body.title,
+    content: req.body.content,
+    author: req.body.author,
+    date: new Date().toISOString(),
+  };
+  blogs.push(blog);
+  res.status(201).json(blog);
+});
+
+// PATCH a post
 app.patch("/posts/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = blogs.findIndex(p => p.id === id);
+  if (index === -1) return res.status(404).send({ error: "Post not found" });
 
-  if (index === -1) {
-    res.status(404).send({ error: "Post not found" });
-  }
-
-  
   blogs[index] = {
-    id: id,
+    ...blogs[index],
     title: req.body.title || blogs[index].title,
     content: req.body.content || blogs[index].content,
     author: req.body.author || blogs[index].author,
-    date: new Date(), 
+    date: new Date().toISOString(),
   };
 
   res.json(blogs[index]);
 });
 
-
-});
-
-//delete a post
-app.delete("/posts/:id",(req,res)=>{
+// DELETE a post
+app.delete("/posts/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = blogs.findIndex(p => p.id === id);
-  if(index===-1){
-    return res.status(404).send({error:"Can't find ther post"});
-  }
-  blogs.splice(index,1);
-  res.send(202);
+  if (index === -1) return res.status(404).send({ error: "Can't find the post" });
+
+  blogs.splice(index, 1);
+  res.sendStatus(202);
 });
 
-
-
-
+// Start server
 app.listen(port, () => {
   console.log(`API is running at http://localhost:${port}`);
 });
-
-
