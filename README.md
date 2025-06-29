@@ -1,15 +1,20 @@
-📝 SimplySaid — Blog Posting Website
-SimplySaid is a blogging platform built using Node.js, Express.js, EJS templating, and a custom API backend. Users can read categorized blog posts, create new ones, edit existing entries, and delete them — all routed via RESTful API calls.
 
-🚀 Features
-🗂 Categorized blog posts (Creative, Tech, Education, Lifestyle, Personal)
+<body>
 
-📝 Create, read, update, and delete (CRUD) posts
+  <h1>📚 SimplySaid – Blogging Platform</h1>
 
-📄 EJS templating engine for dynamic pages
+  <p><strong>SimplySaid</strong> is a full-stack blog platform using <strong>Express.js</strong> and <strong>EJS</strong> where users can create, edit, and delete categorized blog posts (Creative, Tech, Education, etc.).</p>
 
-🌐 REST API (Express) integration
+  <h2>🚀 Features</h2>
+  <ul>
+    <li>Category-wise blog filtering</li>
+    <li>Form-based post creation and editing</li>
+    <li>RESTful API (JSON-based)</li>
+    <li>EJS templating for views</li>
+    <li>Express routing with Axios-based backend calls</li>
+  </ul>
 
-🎨 Clean UI with client-server architecture
 
-  
+
+</body>
+</html>
