@@ -16,7 +16,7 @@ a {
 }
 
 body {
-  background-color: yellowgreen;
+  
   color: #333;
   line-height: 1.6;
 }
@@ -137,4 +137,43 @@ a.delete:hover {
 
 #newPostBtn:hover {
   background-color: #27ae60;
+}
+.edu_body{
+  background-image: url('../images/education.avif');
+  background-size: cover;            /* Scales image to cover the whole screen */
+  background-repeat: no-repeat;      /* Prevents tiling */
+  background-position: center center;/* Centers image */
+ 
+}
+
+.cre_body{
+  background-image: url('../images/creative.jpg');
+  background-size: cover;            /* Scales image to cover the whole screen */
+  background-repeat: no-repeat;      /* Prevents tiling */
+  background-position: center center;/* Centers image */
+  
+}
+
+.lif_body{
+  background-image: url('../images/lifestyle.jpg');
+  background-size: cover;            /* Scales image to cover the whole screen */
+  background-repeat: no-repeat;      /* Prevents tiling */
+  background-position: center center;/* Centers image */
+  
+}
+
+.per_body{
+  background-image: url('../images/personal.jpeg');
+  background-size: cover;            /* Scales image to cover the whole screen */
+  background-repeat: no-repeat;      /* Prevents tiling */
+  background-position: center center;/* Centers image */
+  
+}
+
+.tec_body{
+  background-image: url('../images/tech.jpg');
+  background-size: cover;            /* Scales image to cover the whole screen */
+  background-repeat: no-repeat;      /* Prevents tiling */
+  background-position: center center;/* Centers image */
+  
 }
