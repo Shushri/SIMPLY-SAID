@@ -33,9 +33,9 @@ app.post("/home", (req, res) => {
 app.get("/blogs/creative", async (req, res) => {
     
     try {
-    const response = await axios.get(`${API_URL}/creativeposts`);
-    console.log(response);
-    res.render("blogs/creative.ejs", { posts: response.data });
+      const response = await axios.get(`${API_URL}/creativeposts`);
+      console.log(response);
+      res.render("blogs/creative.ejs", { posts: response.data });
   } catch (error) {
     res.status(500).json({ message: "Error fetching posts" });
   }
@@ -54,7 +54,7 @@ app.get("/blogs/tech", async (req, res) => {
 });
 
 //routes to  educational page
-app.get("/blogs/education", async (req, res) => {
+app.get("/blogs/educational", async (req, res) => {
     
     try {
     const response = await axios.get(`${API_URL}/eduposts`);
@@ -116,6 +116,7 @@ app.post("/api/posts", async (req, res) => {
     res.status(500).json({ message: "Error creating post" });
   }
 });
+
 // Partially update a post
 app.post("/api/posts/:id", async (req, res) => {
   console.log("called");
